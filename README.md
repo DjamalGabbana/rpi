@@ -3,7 +3,8 @@
 ## Author : Manitra
 # But du projet:
 Recupérer les données d'un capteur de température connecté a un RPI3 pour les envoyer par MQTT/TCP vers un RPI5 avec Home Assistant.
-Qui va ensuite enclencher un ventilateur connecté avec KNX-IP.
+Qui va ensuite enclencher un ventilateur connecté avec KNX-IP. 
+Declenchement du ventilateur quand la température est >= 21°.
 
 # Config RPI3
 - build essentials
