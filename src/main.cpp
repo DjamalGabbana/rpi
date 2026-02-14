@@ -1,24 +1,18 @@
 #include "Sensor.h"
-#include <iostream>
-#include <csignal>
+#include "Processor.h"
+#include <thread>
+#include <chrono>
 
-Sensor* sensor;
+int main()
+{
+    Sensor sensor(4);
+    Processor processor(&sensor);
 
-void signalHandler(int signum) {
-    std::cout << "Arrêt du programme..." << std::endl;
-    if (sensor) sensor->stop();
-    exit(signum);
-}
+    sensor.start();
+    processor.start();
 
-int main() {
-    signal(SIGINT, signalHandler); // Ctrl+C
-
-    sensor = new Sensor(4); // GPIO4 = pin 7
-    sensor->start();
-
-    while (true) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-    }
+    while(true)
+        std::this_thread::sleep_for(std::chrono::seconds(10));
 
     return 0;
 }

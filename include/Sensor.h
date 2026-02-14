@@ -3,7 +3,7 @@
 
 #include <thread>
 #include <atomic>
-#include <chrono>
+#include <mutex>
 
 class Sensor {
 public:
@@ -12,8 +12,9 @@ public:
 
     void start();
     void stop();
-    float getLastTemperature();
-    float getLastHumidity();
+
+    int getTemperature();
+    int getHumidity();
 
 private:
     void run();
@@ -21,11 +22,13 @@ private:
 
     int pin;
     int interval;
+
     std::atomic<bool> running;
     std::thread sensorThread;
 
-    float temperature;
-    float humidity;
+    std::mutex dataMutex;
+    int temperature;
+    int humidity;
 };
 
 #endif
