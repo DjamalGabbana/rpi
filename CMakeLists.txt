@@ -12,6 +12,8 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(temp-rpi3 ${SOURCES})
 
 target_link_libraries(temp-rpi3
-    pthread
     pigpio
+    pthread
+    paho-mqttpp3
+    paho-mqtt3as
 )

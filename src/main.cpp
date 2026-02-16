@@ -1,18 +1,24 @@
 #include "Sensor.h"
-#include "Processor.h"
-#include <thread>
-#include <chrono>
+#include "MqttClient.h"
+#include <unistd.h>
 
 int main()
 {
     Sensor sensor(4);
-    Processor processor(&sensor);
-
     sensor.start();
-    processor.start();
+
+    MqttClient mqtt("tcp://192.168.1.25:1883", "RPi3_DHT11");
 
     while(true)
-        std::this_thread::sleep_for(std::chrono::seconds(10));
+    {
+        int t = (int)sensor.getTemperature();
+        int h = (int)sensor.getHumidity();
 
-    return 0;
+        if(t != 0 && h != 0)
+        {
+            mqtt.publish(t,h);
+        }
+
+        sleep(5);
+    }
 }
