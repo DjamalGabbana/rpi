@@ -1,14 +1,25 @@
-# rpi
-# Version : 12.02.2026 
-## Author : Manitra
-# But du projet:
-Recupérer les données d'un capteur de température connecté a un RPI3 pour les envoyer par MQTT/TCP vers un RPI5 avec Home Assistant.
-Qui va ensuite enclencher un ventilateur connecté avec KNX-IP. 
-Declenchement du ventilateur quand la température est >= 21°.
+# 🌡️ MQTT Temperature Monitoring with Raspberry Pi 3 & Home Assistant (KNX)
 
-# Config RPI3
-- build essentials
-- git
-- cmake
-- pigpio
-- mqtt client library 
+Version : 12.02.2026  
+Author : Manitra  
+
+## 🎯 Objectif du projet
+
+Récupérer les données d'un capteur de température **DHT11** connecté à un **Raspberry Pi 3**, 
+puis les envoyer via **MQTT/TCP** vers un **Raspberry Pi 5** exécutant **Home Assistant**.
+
+Home Assistant utilise ensuite ces données pour déclencher automatiquement un ventilateur 
+connecté au réseau **KNX-IP** lorsque la température dépasse un certain seuil.
+
+➡️ Le ventilateur est activé lorsque la température est ≥ 21°C pendant 5 minutes.
+➡️ Il reste actif pendant 1 heure.
+
+## 🧱 Architecture
+
+[DHT11]
+   ↓
+[Raspberry Pi 3]
+   ↓ MQTT
+[Home Assistant - Raspberry Pi 5]
+   ↓ KNX/IP
+[Ventilateur]
